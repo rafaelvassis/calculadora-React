@@ -60,6 +60,16 @@ function App() {
         setValue("0");
       }
     }
+
+    if (key.id === 17) {
+      if (value[0] === "-") {
+        setValue((prev) => {
+          return prev.slice(1);
+        });
+      } else {
+        setValue((prev) => "-" + prev);
+      }
+    }
   }
 
   return (
