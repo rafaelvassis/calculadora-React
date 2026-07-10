@@ -1,4 +1,5 @@
 
+import Credits from "./components/Credits/Credits";
 import Display from "./components/Display/Display";
 import Keyboard from "./components/Keyboard/Keyboard";
 
@@ -10,6 +11,7 @@ function App() {
         value="47"
       />
       <Keyboard />
+      <Credits/>
     </main>
   );
 }

@@ -1,0 +1,13 @@
+.credits {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 25px;
+  gap: 20px;
+  font-size: small;
+  border: solid 1px rgb(78, 78, 78);
+}
+
+.credits p strong {
+    color: rgb(134, 134, 134);
+}

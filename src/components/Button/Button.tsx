@@ -1,5 +1,5 @@
 
-import type { Key } from "../../types/key";
+import type { Key } from "../../types/Key";
 import "./Button.css";
 
 type ButtonProps = {

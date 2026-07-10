@@ -1,6 +1,6 @@
 import Button from "../Button/Button";
 import "./Keyboard.css";
-import type {Key} from "../../types/key"
+import type {Key} from "../../types/Key"
 
 
 const keys: Key[] = [
