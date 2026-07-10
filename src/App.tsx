@@ -9,9 +9,10 @@ function App() {
   const [value, setValue] = useState("0");
 
   function handleKeyPress(key: Key) {
-    // Ainda não implementado
-    if (key.type !== "number") return;
+    if (key.type === "number") handleNumber(key);
+  }
 
+  function handleNumber(key: Key) {
     // Evita dois zeros iniciais
     if (value === "0" && key.label === "0") return;
 
