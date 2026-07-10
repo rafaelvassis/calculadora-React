@@ -47,6 +47,19 @@ function App() {
       setHistory("");
       setValue("0");
     }
+
+    // Tecla ⌫ (Backspace)
+    if (key.id === 3) {
+      if (value.length > 0) {
+        setValue((prev) => {
+          return prev.length > 0 ? prev.slice(0, -1) : prev;
+        });
+      }
+
+      if (value.length === 1) {
+        setValue("0");
+      }
+    }
   }
 
   return (
