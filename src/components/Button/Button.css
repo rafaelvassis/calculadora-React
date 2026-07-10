@@ -1,0 +1,33 @@
+.button {
+
+    height: 64px;
+
+    background: var(--button);
+
+    color: var(--text);
+
+    border: none;
+
+    border-radius: var(--radius);
+
+    font-size: 1.3rem;
+
+    cursor: pointer;
+
+    transition:
+        background .2s,
+        transform .1s;
+}
+
+
+.button:hover {
+
+    background: var(--button-hover);
+
+    transform: translateY(-2px);
+}
+
+.button:active {
+
+    transform: scale(.97);
+}

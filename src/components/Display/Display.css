@@ -1,7 +1,8 @@
 .display {
-  background-color: #1e293b;
+  background: var(--display);
   border-radius: 12px;
-  padding: 1.5rem;
+  padding: 20px;
+  text-align: right;
 
   display: flex;
   flex-direction: column;
@@ -13,7 +14,7 @@
 .display__history {
   min-height: 1.2rem;
 
-  color: #94a3b8;
+  color:var(--text-muted);
 
   font-size: .9rem;
 }
@@ -23,7 +24,7 @@
 
   font-weight: 600;
 
-  color: white;
+  color: var(--text);
 
   word-break: break-all;
 }

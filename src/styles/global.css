@@ -1,3 +1,25 @@
+:root {
+  --bg: #5e7abc;
+
+  --calculator: #1e293b;
+
+  --display: #0f172a;
+
+  --button: #334155;
+  --button-hover: #475569;
+
+  --operator: #3b82f6;
+  --operator-hover: #2563eb;
+
+  --equals: #6366f1;
+  --equals-hover: #4f46e5;
+
+  --text: #f8fafc;
+  --text-muted: #94a3b8;
+
+  --radius: 12px;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -5,5 +27,20 @@
 }
 
 body {
-  font-family: system-ui, sans-serif;
+  background: var(--bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  color: var(--text);
+}
+
+.calculator {
+  width: 100%;
+  min-width: 360px;
+  padding: 1.5rem;
+  background: var(--calculator);
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
 }

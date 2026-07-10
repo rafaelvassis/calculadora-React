@@ -4,7 +4,7 @@ import Keyboard from "./components/Keyboard/Keyboard";
 
 function App() {
    return (
-    <main>
+    <main className="calculator">
       <Display
         history="12 + 35"
         value="47"
