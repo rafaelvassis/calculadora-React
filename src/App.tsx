@@ -9,6 +9,9 @@ function App() {
   const [value, setValue] = useState("0");
 
   function handleKeyPress(key: Key) {
+    if (key.type !== "number") {
+      return;
+    }
     setValue((prevValue) => prevValue + key.label);
   }
 
