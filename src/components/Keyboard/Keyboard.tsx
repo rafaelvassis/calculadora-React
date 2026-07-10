@@ -1,11 +1,10 @@
 import Button from "../Button/Button";
 import "./Keyboard.css";
-import type {Key} from "../../types/Key"
-
+import type { Key } from "../../types/Key";
 
 type KeyboardProps = {
-    onKeyPress: (key: Key) => void; 
-}
+  onKeyPress: (key: Key) => void;
+};
 
 const keys: Key[] = [
   { id: 1, label: "CE", type: "action" },
@@ -34,10 +33,7 @@ const keys: Key[] = [
   { id: 20, label: "=", type: "equals" },
 ];
 
-
-
-function Keyboard({onKeyPress} : KeyboardProps ) {
-
+function Keyboard({ onKeyPress }: KeyboardProps) {
   return (
     <section className="keyboard">
       {keys.map((key) => (

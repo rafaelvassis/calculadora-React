@@ -9,10 +9,29 @@ function App() {
   const [value, setValue] = useState("0");
 
   function handleKeyPress(key: Key) {
-    if (key.type !== "number") {
+    // Ainda não implementado
+    if (key.type !== "number") return;
+
+    // Evita dois zeros iniciais
+    if (value === "0" && key.label === "0") return;
+
+    // Vírgula
+    if (key.label === ",") {
+      if (value.includes(",")) return;
+
+      setValue((prev) => prev + ",");
+
       return;
     }
-    setValue((prevValue) => prevValue + key.label);
+
+    // Primeiro número substitui o zero inicial
+    if (value === "0") {
+      setValue(key.label);
+      return;
+    }
+
+    // Concatena os demais números
+    setValue((prev) => prev + key.label);
   }
 
   return (
