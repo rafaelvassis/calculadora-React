@@ -3,6 +3,10 @@ import "./Keyboard.css";
 import type {Key} from "../../types/Key"
 
 
+type KeyboardProps = {
+    onKeyPress: (key: Key) => void; 
+}
+
 const keys: Key[] = [
   { id: 1, label: "CE", type: "action" },
   { id: 2, label: "C", type: "action" },
@@ -30,11 +34,9 @@ const keys: Key[] = [
   { id: 20, label: "=", type: "equals" },
 ];
 
-function Keyboard() {
 
-  function handleKeyPress(key: Key) {
-    console.log(`Função ainda não implementada para a tecla ${key.label}`);
-  }
+
+function Keyboard({onKeyPress} : KeyboardProps ) {
 
   return (
     <section className="keyboard">
@@ -43,7 +45,7 @@ function Keyboard() {
           key={key.id}
           label={key.label}
           type={key.type}
-          onClick={() => handleKeyPress(key)}
+          onClick={() => onKeyPress(key)}
         />
       ))}
     </section>

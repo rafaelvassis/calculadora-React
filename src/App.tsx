@@ -2,15 +2,20 @@ import { useState } from "react";
 import Credits from "./components/Credits/Credits";
 import Display from "./components/Display/Display";
 import Keyboard from "./components/Keyboard/Keyboard";
+import type { Key } from "./types/Key";
 
 function App() {
   const [history, setHistory] = useState("");
   const [value, setValue] = useState("0");
 
+  function handleKeyPress(key: Key) {
+    setValue((prevValue) => prevValue + key.label);
+  }
+
   return (
     <main className="calculator">
       <Display history={history} value={value} />
-      <Keyboard />
+      <Keyboard onKeyPress={handleKeyPress} />
       <Credits />
     </main>
   );
