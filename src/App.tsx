@@ -9,8 +9,15 @@ function App() {
   const [value, setValue] = useState("0");
 
   function handleKeyPress(key: Key) {
-    if (key.type === "number") handleNumber(key);
-    if (key.type === "action") handleAction(key);
+    switch (key.type) {
+      case "number":
+        handleNumber(key);
+        break;
+
+      case "action":
+        handleAction(key);
+        break;
+    }
   }
 
   function handleNumber(key: Key) {
@@ -37,38 +44,37 @@ function App() {
   }
 
   function handleAction(key: Key) {
-    // CE (Clean Entry - Limpar entrada)
-    if (key.label === "CE") {
-      setValue("0");
-    }
-
-    // Tecla C (Clear - Limpa a memória da calculadora)
-    if (key.label === "C") {
-      setHistory("");
-      setValue("0");
-    }
-
-    // Tecla ⌫ (Backspace)
-    if (key.id === 3) {
-      if (value.length > 0) {
-        setValue((prev) => {
-          return prev.length > 0 ? prev.slice(0, -1) : prev;
-        });
-      }
-
-      if (value.length === 1) {
+    switch (key.label) {
+      case "CE": // Clear Entry (Limpa toda a entrada)
         setValue("0");
-      }
-    }
+        break;
 
-    if (key.id === 17) {
-      if (value[0] === "-") {
+      case "C": // Clear (Limpa toda a memória)
+        setHistory("");
+        setValue("0");
+        break;
+
+      case "⌫": // Backspace
         setValue((prev) => {
-          return prev.slice(1);
+          if (prev.length <= 1) {
+            return "0";
+          }
+
+          return prev.slice(0, -1);
         });
-      } else {
-        setValue((prev) => "-" + prev);
-      }
+        break;
+
+      case "±": // Inverte o sinal
+        if (value === "0") return;
+
+        if (value.startsWith("-")) {
+          setValue((prev) => {
+            return prev.slice(1);
+          });
+        } else {
+          setValue((prev) => "-" + prev);
+        }
+        break;
     }
   }
 
