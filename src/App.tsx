@@ -36,8 +36,11 @@ function App() {
     setValue((prev) => prev + key.label);
   }
 
-  function handleAction(key: Key){
-
+  function handleAction(key: Key) {
+    // CE (Clean Entry - Limpar entrada)
+    if (key.label === "CE") {
+      setValue("0");
+    }
   }
 
   return (
