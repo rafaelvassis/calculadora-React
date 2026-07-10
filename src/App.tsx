@@ -41,6 +41,12 @@ function App() {
     if (key.label === "CE") {
       setValue("0");
     }
+
+    // Tecla C (Clear - Limpa a memória da calculadora)
+    if (key.label === "C") {
+      setHistory("");
+      setValue("0");
+    }
   }
 
   return (
