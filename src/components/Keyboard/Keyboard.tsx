@@ -1,6 +1,6 @@
 import Button from "../Button/Button";
 import "./Keyboard.css";
-import type { Key } from "../../types/key.ts";
+import type {Key} from "../../types/key"
 
 
 const keys: Key[] = [
@@ -41,7 +41,7 @@ function Keyboard() {
       {keys.map((key) => (
         <Button
           key={key.id}
-          text={key.label}
+          label={key.label}
           onClick={() => handleKeyPress(key)}
         />
       ))}

@@ -1,14 +1,14 @@
 import "./Button.css";
 
 type ButtonProps = {
-  text: string;
+  label: string;
   onClick: () => void;
 };
 
-function Button({ text, onClick }: ButtonProps) {
+function Button({ label, onClick }: ButtonProps) {
   return (
     <button onClick = {onClick} className="button">
-      {text}
+      {label}
     </button>
   );
 }
