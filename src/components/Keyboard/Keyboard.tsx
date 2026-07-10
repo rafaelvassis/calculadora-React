@@ -42,6 +42,7 @@ function Keyboard() {
         <Button
           key={key.id}
           label={key.label}
+          type={key.type}
           onClick={() => handleKeyPress(key)}
         />
       ))}

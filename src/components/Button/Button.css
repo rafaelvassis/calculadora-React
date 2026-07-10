@@ -31,3 +31,27 @@
 
     transform: scale(.97);
 }
+
+.button--number {
+  background: var(--button);
+}
+
+.button--operator {
+  background: var(--operator);
+}
+
+.button--equals {
+  background: var(--equals);
+}
+
+.button--action {
+  background: #475569;
+}
+
+.button--operator:hover {
+  background: var(--operator-hover);
+}
+
+.button--equals:hover {
+  background: var(--equals-hover);
+}
