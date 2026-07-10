@@ -1,17 +1,17 @@
-
+import { useState } from "react";
 import Credits from "./components/Credits/Credits";
 import Display from "./components/Display/Display";
 import Keyboard from "./components/Keyboard/Keyboard";
 
 function App() {
-   return (
+  const [history, setHistory] = useState("");
+  const [value, setValue] = useState("0");
+
+  return (
     <main className="calculator">
-      <Display
-        history="12 + 35"
-        value="47"
-      />
+      <Display history={history} value={value} />
       <Keyboard />
-      <Credits/>
+      <Credits />
     </main>
   );
 }
