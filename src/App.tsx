@@ -10,6 +10,7 @@ function App() {
 
   function handleKeyPress(key: Key) {
     if (key.type === "number") handleNumber(key);
+    if (key.type === "action") handleAction(key);
   }
 
   function handleNumber(key: Key) {
@@ -33,6 +34,10 @@ function App() {
 
     // Concatena os demais números
     setValue((prev) => prev + key.label);
+  }
+
+  function handleAction(key: Key){
+
   }
 
   return (
