@@ -1,13 +1,7 @@
 import Button from "../Button/Button";
 import "./Keyboard.css";
+import type { Key } from "../../types/key.ts";
 
-type KeyType = "number" | "operator" | "action" | "equals";
-
-type Key = {
-  id: number;
-  label: string;
-  type: KeyType;
-};
 
 const keys: Key[] = [
   { id: 1, label: "CE", type: "action" },
