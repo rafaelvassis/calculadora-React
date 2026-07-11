@@ -6,13 +6,16 @@ import type { Key } from "./types/Key";
 import type { Operator } from "./types/Operator";
 
 function App() {
+  const divisionByZeroMessage = "Não é possível dividir por zero";
+
   const [history, setHistory] = useState("");
   const [value, setValue] = useState("0");
   const [firstOperand, setFirstOperand] = useState<number | null>(null);
   const [operator, setOperator] = useState<Operator | null>(null);
   const [hasError, setHasError] = useState(false);
   const [hasResult, setHasResult] = useState(false);
-  const divisionByZeroMessage = "Não é possível dividir por zero";
+  const [lastOperator, setLastOperator] = useState<Operator | null>(null);
+  const [lastOperand, setLastOperand] = useState<number | null>(null);
 
   function handleKeyPress(key: Key) {
     if (hasError) {
@@ -155,11 +158,19 @@ function App() {
   }
 
   function handleEquals() {
+    let result: number;
+
     if (operator === null || firstOperand === null) {
+      if (lastOperator === null || lastOperand === null) return;
+
+      result = calculate(Number(value), lastOperand, lastOperator);
+
+      setHistory(`${value} ${lastOperator} ${lastOperand} =`);
+      setValue(result.toString());
+      setHasResult(true);
+
       return;
     }
-
-    let result: number;
 
     try {
       result = calculate(firstOperand, Number(value), operator);
@@ -168,13 +179,16 @@ function App() {
 
       setFirstOperand(null);
       setOperator(null);
-      
+
       setHistory(`${firstOperand} ${operator} ${value}`);
       setValue(divisionByZeroMessage);
       return;
     }
 
     setHistory(`${firstOperand} ${operator} ${value} =`);
+
+    setLastOperator(operator);
+    setLastOperand(Number(value));
 
     setValue(result.toString());
     setHasResult(true);
@@ -211,6 +225,8 @@ function App() {
     setOperator(null);
     setHasError(false);
     setHasResult(false);
+    setLastOperator(null);
+    setLastOperand(null);
   }
 
   return (
