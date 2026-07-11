@@ -11,6 +11,7 @@ function App() {
   const [firstOperand, setFirstOperand] = useState<number | null>(null);
   const [operator, setOperator] = useState<Operator | null>(null);
   const [hasError, setHasError] = useState(false);
+  const [hasResult, setHasResult] = useState(false);
   const divisionByZeroMessage = "Não é possível dividir por zero";
 
   function handleKeyPress(key: Key) {
@@ -43,10 +44,22 @@ function App() {
       case "operator":
         handleOperator(key);
         break;
+
+      case "equals":
+        handleEquals();
+        break;
     }
   }
 
   function handleNumber(key: Key) {
+    if (hasResult) {
+
+      resetCalculator();
+      setValue(key.label);
+      setHasResult(false);
+      return;
+    }
+
     // Evita dois zeros iniciais
     if (value === "0" && key.label === "0") return;
 
@@ -146,6 +159,22 @@ function App() {
     setValue("0");
   }
 
+  function handleEquals() {
+    if (operator === null || firstOperand === null) {
+      return;
+    }
+
+    const result = calculate(firstOperand, Number(value), operator);
+
+    setHistory(`${firstOperand} ${operator} ${value} =`);
+
+    setValue(result.toString());
+    setHasResult(true);
+
+    setFirstOperand(null);
+    setOperator(null);
+  }
+
   function calculate(
     first: number,
     second: number,
@@ -174,6 +203,7 @@ function App() {
     setOperator(null);
     setHasError(false);
   }
+
 
   return (
     <main className="calculator">
