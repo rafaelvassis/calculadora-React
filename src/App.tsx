@@ -53,10 +53,8 @@ function App() {
 
   function handleNumber(key: Key) {
     if (hasResult) {
-
       resetCalculator();
       setValue(key.label);
-      setHasResult(false);
       return;
     }
 
@@ -117,6 +115,7 @@ function App() {
   }
 
   function handleOperator(key: Key) {
+    setHasResult(false);
     const newOperator = key.label as Operator;
 
     if (operator === null) {
@@ -132,10 +131,6 @@ function App() {
 
     if (firstOperand === null) {
       throw new Error("Estado inválido da calculadora.");
-    }
-
-    if (firstOperand === null) {
-      return;
     }
 
     let result: number;
@@ -164,7 +159,20 @@ function App() {
       return;
     }
 
-    const result = calculate(firstOperand, Number(value), operator);
+    let result: number;
+
+    try {
+      result = calculate(firstOperand, Number(value), operator);
+    } catch {
+      setHasError(true);
+
+      setFirstOperand(null);
+      setOperator(null);
+      
+      setHistory(`${firstOperand} ${operator} ${value}`);
+      setValue(divisionByZeroMessage);
+      return;
+    }
 
     setHistory(`${firstOperand} ${operator} ${value} =`);
 
@@ -202,8 +210,8 @@ function App() {
     setFirstOperand(null);
     setOperator(null);
     setHasError(false);
+    setHasResult(false);
   }
-
 
   return (
     <main className="calculator">
