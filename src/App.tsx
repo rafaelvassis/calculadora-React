@@ -11,6 +11,7 @@ function App() {
   const [history, setHistory] = useState("");
   const [value, setValue] = useState("0");
   const [firstOperand, setFirstOperand] = useState<number | null>(null);
+  const [resetScreen, setResetScreen] = useState<boolean>(true);
   const [operator, setOperator] = useState<Operator | null>(null);
   const [hasError, setHasError] = useState(false);
   const [hasResult, setHasResult] = useState(false);
@@ -61,8 +62,28 @@ function App() {
       return;
     }
 
+    if (resetScreen) {
+      if (key.label === ",") {
+        setValue((prev) => prev + ",");
+        setResetScreen(false);
+        return;
+      }
+
+      setValue(key.label);
+      setResetScreen(false);
+      return;
+    }
+
     // Evita dois zeros iniciais
-    if (value === "0" && key.label === "0") return;
+    if (value === "0" && key.label === "0") {
+      return;
+    }
+
+    // Evita o zero à esquerda
+    if (value === "0" && key.label !== ",") {
+      setValue(key.label);
+      return;
+    }
 
     // Vírgula
     if (key.label === ",") {
@@ -70,12 +91,6 @@ function App() {
 
       setValue((prev) => prev + ",");
 
-      return;
-    }
-
-    // Primeiro número substitui o zero inicial
-    if (value === "0") {
-      setValue(key.label);
       return;
     }
 
@@ -119,15 +134,17 @@ function App() {
 
   function handleOperator(key: Key) {
     setHasResult(false);
+
     const newOperator = key.label as Operator;
 
     if (operator === null) {
-      const operand = Number(value);
+      const operand = parseDisplayValue(value);
 
       setFirstOperand(operand);
       setOperator(newOperator);
-      setHistory(`${operand} ${newOperator}`);
+      setHistory(`${formatNumberToDisplay(operand)} ${newOperator}`);
       setValue("0");
+      setResetScreen(true);
 
       return;
     }
@@ -139,22 +156,24 @@ function App() {
     let result: number;
 
     try {
-      result = calculate(firstOperand, Number(value), operator);
+      result = calculate(firstOperand, parseDisplayValue(value), operator);
     } catch {
       setHasError(true);
+      setResetScreen(true);
 
       setFirstOperand(null);
       setOperator(null);
 
-      setHistory(`${firstOperand} ${operator} 0`);
+      setHistory(`${formatNumberToDisplay(firstOperand)} ${operator} 0`);
       setValue(divisionByZeroMessage);
       return;
     }
 
     setFirstOperand(result);
     setOperator(newOperator);
-    setHistory(`${result} ${newOperator}`);
+    setHistory(`${formatNumberToDisplay(result)} ${newOperator}`);
     setValue("0");
+    setResetScreen(true);
   }
 
   function handleEquals() {
@@ -163,34 +182,41 @@ function App() {
     if (operator === null || firstOperand === null) {
       if (lastOperator === null || lastOperand === null) return;
 
-      result = calculate(Number(value), lastOperand, lastOperator);
+      result = calculate(parseDisplayValue(value), lastOperand, lastOperator);
 
-      setHistory(`${value} ${lastOperator} ${lastOperand} =`);
-      setValue(result.toString());
+      setHistory(
+        `${value} ${lastOperator} ${formatNumberToDisplay(lastOperand)} =`,
+      );
+      setValue(result.toString().replace(".", ","));
       setHasResult(true);
 
       return;
     }
 
     try {
-      result = calculate(firstOperand, Number(value), operator);
+      result = calculate(firstOperand, parseDisplayValue(value), operator);
     } catch {
       setHasError(true);
+
+      setResetScreen(true);
 
       setFirstOperand(null);
       setOperator(null);
 
-      setHistory(`${firstOperand} ${operator} ${value}`);
+      setHistory(`${formatNumberToDisplay(firstOperand)} ${operator} ${value}`);
+
       setValue(divisionByZeroMessage);
+
       return;
     }
 
-    setHistory(`${firstOperand} ${operator} ${value} =`);
+    setHistory(`${formatNumberToDisplay(firstOperand)} ${operator} ${value} =`);
 
     setLastOperator(operator);
-    setLastOperand(Number(value));
+    setLastOperand(parseDisplayValue(value));
 
-    setValue(result.toString());
+    setValue(formatNumberToDisplay(result));
+
     setHasResult(true);
 
     setFirstOperand(null);
@@ -216,6 +242,16 @@ function App() {
 
         return first / second;
     }
+  }
+
+  function parseDisplayValue(val: string): number {
+    // Substitui a vírgula pelo ponto antes de converter para número
+    return Number(val.replace(",", "."));
+  }
+
+  function formatNumberToDisplay(num: number): string {
+    // Transforma o número em string e troca o ponto por vírgula
+    return num.toString().replace(".", ",");
   }
 
   function resetCalculator() {
