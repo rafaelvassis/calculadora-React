@@ -8,15 +8,15 @@
   flex-direction: column;
   align-items: flex-end;
 
-  gap: .5rem;
+  gap: 0.5rem;
 }
 
 .display__history {
   min-height: 1.2rem;
 
-  color:var(--text-muted);
+  color: var(--text-muted);
 
-  font-size: .9rem;
+  font-size: 0.9rem;
 }
 
 .display__value {

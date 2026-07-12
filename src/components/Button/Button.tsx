@@ -1,4 +1,3 @@
-
 import type { Key } from "../../types/Key";
 import "./Button.css";
 
@@ -10,10 +9,7 @@ type ButtonProps = {
 
 function Button({ label, type, onClick }: ButtonProps) {
   return (
-    <button 
-        onClick = {onClick} 
-        className={`button button--${type}`}
-    >
+    <button onClick={onClick} className={`button button--${type}`}>
       {label}
     </button>
   );

@@ -1,35 +1,31 @@
 .button {
+  height: 64px;
 
-    height: 64px;
+  background: var(--button);
 
-    background: var(--button);
+  color: var(--text);
 
-    color: var(--text);
+  border: none;
 
-    border: none;
+  border-radius: var(--radius);
 
-    border-radius: var(--radius);
+  font-size: 1.3rem;
 
-    font-size: 1.3rem;
+  cursor: pointer;
 
-    cursor: pointer;
-
-    transition:
-        background .2s,
-        transform .1s;
+  transition:
+    background 0.2s,
+    transform 0.1s;
 }
 
-
 .button:hover {
+  background: var(--button-hover);
 
-    background: var(--button-hover);
-
-    transform: translateY(-2px);
+  transform: translateY(-2px);
 }
 
 .button:active {
-
-    transform: scale(.97);
+  transform: scale(0.97);
 }
 
 .button--number {
