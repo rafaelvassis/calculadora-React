@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Credits from "./components/Credits/Credits";
 import Display from "./components/Display/Display";
 import Keyboard from "./components/Keyboard/Keyboard";
@@ -17,6 +17,47 @@ function App() {
   const [hasResult, setHasResult] = useState(false);
   const [lastOperator, setLastOperator] = useState<Operator | null>(null);
   const [lastOperand, setLastOperand] = useState<number | null>(null);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      let keyData: Key | null = null;
+      const key = event.key;
+
+      // 1. Mapeia Números e Vírgula/Ponto
+      if (/^[0-9]$/.test(key)) {
+        keyData = { label: key, type: "number" } as Key;
+      } else if (key === "," || key === ".") {
+        keyData = { label: ",", type: "number" } as Key;
+      }
+
+      // 2. Mapeia Operadores
+      else if (key === "+") keyData = { label: "+", type: "operator" } as Key;
+      else if (key === "-") keyData = { label: "-", type: "operator" } as Key;
+      else if (key === "*") keyData = { label: "×", type: "operator" } as Key;
+      else if (key === "/") keyData = { label: "÷", type: "operator" } as Key;
+      // 3. Mapeia Ações
+      else if (key === "Enter" || key === "=") {
+        keyData = { label: "=", type: "equals" } as Key;
+      } else if (key === "Backspace") {
+        keyData = { label: "⌫", type: "action" } as Key;
+      } else if (key === "Escape") {
+        keyData = { label: "C", type: "action" } as Key;
+      } else if (key === "Delete") {
+        keyData = { label: "CE", type: "action" } as Key;
+      }
+
+      if (keyData) {
+        event.preventDefault();
+        handleKeyPress(keyData);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handleKeyPress]);
 
   function handleKeyPress(key: Key) {
     if (hasError) {
