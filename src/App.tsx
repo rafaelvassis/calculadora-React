@@ -4,6 +4,11 @@ import Display from "./components/Display/Display";
 import Keyboard from "./components/Keyboard/Keyboard";
 import type { Key } from "./types/Key";
 import type { Operator } from "./types/Operator";
+import {
+  calculate,
+  formatNumberToDisplay,
+  parseDisplayValue,
+} from "./utils/calculator";
 
 function App() {
   const divisionByZeroMessage = "Não é possível dividir por zero";
@@ -262,37 +267,6 @@ function App() {
 
     setFirstOperand(null);
     setOperator(null);
-  }
-
-  function calculate(
-    first: number,
-    second: number,
-    operator: Operator,
-  ): number {
-    switch (operator) {
-      case "+":
-        return first + second;
-      case "-":
-        return first - second;
-      case "×":
-        return first * second;
-      case "÷":
-        if (second === 0) {
-          throw new Error("DIVISION_BY_ZERO");
-        }
-
-        return first / second;
-    }
-  }
-
-  function parseDisplayValue(val: string): number {
-    // Substitui a vírgula pelo ponto antes de converter para número
-    return Number(val.replace(",", "."));
-  }
-
-  function formatNumberToDisplay(num: number): string {
-    // Transforma o número em string e troca o ponto por vírgula
-    return num.toString().replace(".", ",");
   }
 
   function resetCalculator() {
