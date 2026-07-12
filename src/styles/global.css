@@ -38,7 +38,7 @@ body {
 
 .calculator {
   width: 100%;
-  min-width: 360px;
+  min-width: 445px;
   padding: 1.5rem;
   background: var(--calculator);
   border-radius: 16px;

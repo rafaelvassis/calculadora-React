@@ -11,7 +11,7 @@ import {
 } from "./utils/calculator";
 
 function App() {
-  const divisionByZeroMessage = "Não é possível dividir por zero";
+  const divisionByZeroMessage = "Divisão por zero";
 
   const [history, setHistory] = useState("");
   const [value, setValue] = useState("0");
