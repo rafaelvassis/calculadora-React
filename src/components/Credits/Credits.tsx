@@ -1,11 +1,12 @@
 import "./Credits.css";
+import bearLogo from "../../assets/img/bear_transparent.png";
 
 function Credits() {
   return (
     <div>
       <div className="credits">
         <p>
-          <img src="src/assets/img/bear_transparent.png" width="50" alt="Bear Logo" />
+          <img src={bearLogo} width="50" alt="Bear Logo" />
         </p>
 
         <p>
